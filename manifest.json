@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Situate",
+  "version": "0.1.0",
+  "description": "Find similar posts from the rationalsphere corpus (LessWrong + Substack).",
+  "permissions": ["activeTab", "storage", "unlimitedStorage", "alarms", "tabs"],
+  "host_permissions": [
+    "https://situate.info/*",
+    "https://www.lesswrong.com/*",
+    "https://*.substack.com/*"
+  ],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Situate",
+    "default_icon": {
+      "16": "icons/16-empty.png",
+      "32": "icons/32-empty.png",
+      "48": "icons/48-empty.png",
+      "128": "icons/128-empty.png"
+    }
+  },
+  "icons": {
+    "16": "icons/16-empty.png",
+    "48": "icons/48-empty.png",
+    "128": "icons/128-empty.png"
+  }
+}
