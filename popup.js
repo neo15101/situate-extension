@@ -5,6 +5,16 @@ const TIMEOUT_MS = 8000;
 const status = document.getElementById("status");
 const results = document.getElementById("results");
 const openFull = document.getElementById("open-full");
+const refresh = document.getElementById("refresh");
+
+refresh.addEventListener("click", async (e) => {
+  e.preventDefault();
+  refresh.classList.add("busy");
+  refresh.textContent = "…";
+  try { await chrome.runtime.sendMessage({ type: "refresh" }); refresh.textContent = "✓"; }
+  catch { refresh.textContent = "✗"; }
+  setTimeout(() => { refresh.textContent = "↻"; refresh.classList.remove("busy"); }, 1500);
+});
 
 function safeHref(u) {
   try {

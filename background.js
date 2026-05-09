@@ -2,7 +2,7 @@ import { canonicalize, isAllowedHost, fnv1a32 } from "./canonicalize.js";
 
 const HASH_URL       = "https://situate.info/url_hashes.bin";
 const DOMAIN_MAP_URL = "https://situate.info/rational/api/domain_map";
-const REFRESH_DAYS   = 7;
+const REFRESH_DAYS   = 1;
 const REFRESH_MS     = REFRESH_DAYS * 24 * 60 * 60 * 1000;
 
 let hashSet = null;
@@ -116,6 +116,13 @@ chrome.tabs.onActivated.addListener(async ({ tabId }) => {
 chrome.runtime.onInstalled.addListener(refreshHashes);
 chrome.alarms.create("refresh", { periodInMinutes: REFRESH_DAYS * 24 * 60 });
 chrome.alarms.onAlarm.addListener(a => { if (a.name === "refresh") refreshHashes(); });
+
+chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+  if (msg && msg.type === "refresh") {
+    refreshHashes().then(() => sendResponse({ ok: true }));
+    return true;  // keep channel open for async sendResponse
+  }
+});
 
 // Eager preload at SW boot so the first tab event doesn't pay cold-start.
 loadDomainMap();

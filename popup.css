@@ -9,9 +9,11 @@ body {
   padding: 10px 14px; border-bottom: 1px solid #222;
 }
 #title { font-weight: 600; color: #fff; }
-#open-full { color: #7cacf8; text-decoration: none; font-size: 12px; }
-#open-full:hover { text-decoration: underline; }
+#header-actions { display: flex; align-items: baseline; gap: 10px; }
+#open-full, #refresh { color: #7cacf8; text-decoration: none; font-size: 12px; }
+#open-full:hover, #refresh:hover { text-decoration: underline; }
 #open-full.loading { pointer-events: none; opacity: 0.5; }
+#refresh.busy { pointer-events: none; opacity: 0.5; }
 #status { padding: 12px 14px; color: #888; font-size: 12px; }
 #status.error { color: #ff9999; }
 #results { list-style: none; padding: 4px 0; max-height: 460px; overflow-y: auto; }
